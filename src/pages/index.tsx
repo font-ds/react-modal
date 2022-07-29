@@ -3,14 +3,14 @@ import {useDispatch,useSelector} from 'react-redux'
 import {AppDispatch, RootState} from '../store/store'
 import {addStringAsync,addString,lowString} from '../store/test'
 import {useQueries,useQuery} from '@tanstack/react-query'
+import {getMessage} from '../request/index'
 
 export default function Index() {
 
     const dispatch=useDispatch<AppDispatch>()
     const text=useSelector((state:RootState)=>state.test.text)
     const {isLoading,isError,data} = useQuery(['user','getMessage2'],async()=>{
-        return fetch('http://127.0.0.1:777/getMessage').then(async response=>{
-            let res=await response.json()
+        getMessage().then(res=>{
             return res
         })
     })
